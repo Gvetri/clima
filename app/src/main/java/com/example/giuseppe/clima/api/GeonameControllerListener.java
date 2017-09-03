@@ -11,5 +11,4 @@ import java.util.List;
 
 public interface GeonameControllerListener {
     void OnLoadFinished(List<Geoname_> Geonames_);
-    List<Geoname_> Testing(String query);
 }

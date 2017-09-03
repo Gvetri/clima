@@ -51,10 +51,6 @@ public class FindCitiesInteractorImpl implements FindCityInteractor {
                 listener.onFinishedByName(Geonames_);
             }
 
-            @Override
-            public List<Geoname_> Testing(String query) {
-                return null;
-            }
         }, query);
 
     }
