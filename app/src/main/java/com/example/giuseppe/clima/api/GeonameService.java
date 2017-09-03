@@ -1,7 +1,6 @@
 package com.example.giuseppe.clima.api;
 
 import com.example.giuseppe.clima.Geoname;
-import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,7 +9,7 @@ import retrofit2.http.Query;
  * Created by giuseppe on 9/3/17.
  */
 
-public interface WeatherService {
+public interface GeonameService {
 
     String URL_BASE = "http://api.geonames.org/";
 

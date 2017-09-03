@@ -19,4 +19,5 @@ public interface MainView {
 
     Context getContext();
 
+    void setItemsByName(List<Geoname_> items);
 }

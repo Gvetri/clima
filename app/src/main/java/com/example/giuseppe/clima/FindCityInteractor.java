@@ -15,7 +15,7 @@ public interface FindCityInteractor {
     void saveQuery(String query, Context context);
 
     interface OnFinishedListenerByName {
-        void onFinished(List<String> items);
+        void onFinishedByName(List<Geoname_> items);
     }
 
     interface OnFinishedListener {

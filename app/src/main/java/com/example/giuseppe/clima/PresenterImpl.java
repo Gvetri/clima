@@ -41,7 +41,7 @@ public class PresenterImpl implements MainPresenter,FindCityInteractor.OnFinishe
 
     @Override
     public void onSearchStarted(String query) {
-        Log.d(TAG, "onSearchStarted: ");
+        Log.d(TAG, "onSearchStarted: "+query);
         findCityInteractor.findItemsByName(this,query);
     }
 
@@ -64,4 +64,16 @@ public class PresenterImpl implements MainPresenter,FindCityInteractor.OnFinishe
     }
 
 
+    @Override
+    public void onFinishedByName(List<Geoname_> items) {
+        if (items == null) {
+            Log.d(TAG, "onFinishedByName: ITEMS NULOS EN EL PRESENTADOR");
+        } else {
+            Log.d(TAG, "onFinishedByName ITEMS NO NULOS EN EL PRESENTADOR: "+ items.size());
+        }
+        if (mainView != null) {
+            mainView.setItemsByName(items);
+            mainView.hideProgress();
+        }
+    }
 }

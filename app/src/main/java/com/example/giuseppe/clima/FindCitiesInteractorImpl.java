@@ -3,6 +3,11 @@ package com.example.giuseppe.clima;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.giuseppe.clima.api.GeonameController;
+import com.example.giuseppe.clima.api.GeonameControllerListener;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,9 +25,11 @@ public class FindCitiesInteractorImpl implements FindCityInteractor {
         this.context = context;
     }
 
+
     @Override
     public void findItemsByName(OnFinishedListenerByName listener, String query) {
-        listener.onFinished(createListByName(query));
+        Log.d(TAG, "findItemsByName: FINDITEMSBYNAME");
+            createListByName(listener,query);
     }
 
     @Override
@@ -32,15 +39,26 @@ public class FindCitiesInteractorImpl implements FindCityInteractor {
         } else {
             Log.d(TAG, "saveQuery: Context NO NULO");
         }
-        
+
         //TODO hacer que este metodo guarde la query
 
     }
 
-    private List<String> createListByName(String query) {
-        Log.d(TAG,"El query es "+query);
-        return Arrays.asList("Madrid","Comunidad Autonoma de Madrid");
+    private void createListByName(final OnFinishedListenerByName listener, String query) {
+        GeonameController geonameController = new GeonameController(new GeonameControllerListener() {
+            @Override
+            public void OnLoadFinished(List<Geoname_> Geonames_) {
+                listener.onFinishedByName(Geonames_);
+            }
+
+            @Override
+            public List<Geoname_> Testing(String query) {
+                return null;
+            }
+        }, query);
+
     }
+
 
     @Override
     public void findItems(OnFinishedListener listener) {
