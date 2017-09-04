@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Context context = getContext();
-        presenter = new PresenterImpl(this, new FindCitiesInteractorImpl(context));
+        presenter = new PresenterImpl(this, new FindCitiesInteractorImpl());
         askForPermission();
         recyclerView = findViewById(R.id.recycler_view);
     }
@@ -73,10 +73,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void setItems(List<String> items) {
-        Log.d(TAG,"SetItems: ACTIVADO");
-        for (int i = 0; i < items.size(); i++) {
-            Log.d(TAG, "setItems: "+ items.get(i));
-        }
     }
 
     @Override

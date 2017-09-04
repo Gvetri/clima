@@ -62,7 +62,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         if (geoname != null){
-            Log.d(TAG, "onMapReady: Geoname distinto de nulo");
             LatLng marker = new LatLng(Double.valueOf(geoname.getLat()), Double.valueOf(geoname.getLng()));
             mMap.addMarker(new MarkerOptions().position(marker).title(geoname.getAsciiName()));
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
