@@ -1,7 +1,7 @@
 package com.example.giuseppe.clima.api;
 
 
-import com.example.giuseppe.clima.Geoname_;
+import com.example.giuseppe.clima.model.Geoname_;
 
 import java.util.List;
 

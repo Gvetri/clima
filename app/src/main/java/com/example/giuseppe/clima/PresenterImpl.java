@@ -2,6 +2,8 @@ package com.example.giuseppe.clima;
 
 import android.util.Log;
 
+import com.example.giuseppe.clima.model.Geoname_;
+
 import java.util.List;
 
 /**
@@ -27,12 +29,6 @@ public class PresenterImpl implements MainPresenter,FindCityInteractor.OnFinishe
         findCityInteractor.findItems(this);
     }
 
-    @Override
-    public void onItemClicked(int position) {
-        if (mainView != null) {
-            mainView.showMessage(String.format("Position %d clicked", position + 1));
-        }
-    }
 
     @Override
     public void onDestroy() {

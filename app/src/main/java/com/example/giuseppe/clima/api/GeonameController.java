@@ -2,8 +2,8 @@ package com.example.giuseppe.clima.api;
 
 import android.util.Log;
 
-import com.example.giuseppe.clima.Geoname;
-import com.example.giuseppe.clima.Geoname_;
+import com.example.giuseppe.clima.model.Geoname;
+import com.example.giuseppe.clima.model.Geoname_;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -63,6 +63,7 @@ public class GeonameController implements Callback<Geoname> {
                     geoname_.setAsciiName(geoname.getGeonames().get(i).getAsciiName());
                     geoname_.setLat(geoname.getGeonames().get(i).getLat());
                     geoname_.setLng(geoname.getGeonames().get(i).getLng());
+                    geoname_.setCountryName(geoname.getGeonames().get(i).getCountryName());
                     a[i] = geoname_;
                 }
 

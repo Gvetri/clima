@@ -5,35 +5,36 @@ import android.content.Context;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.giuseppe.clima.api.GeonameService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.giuseppe.clima.adapter.GeonameAdapter;
+import com.example.giuseppe.clima.model.Geoname_;
+import com.example.giuseppe.clima.utils.RecyclerItemClickListener;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements MainView , AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements MainView {
 
     private static final String TAG = MainActivity.class.getCanonicalName();
     @BindView(R.id.editText) EditText mSearch;
     @BindView(R.id.button) Button mButton;
 
     private PresenterImpl presenter;
+    private GeonameAdapter mAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainView , Adapte
         Context context = getContext();
         presenter = new PresenterImpl(this, new FindCitiesInteractorImpl(context));
         askForPermission();
+        recyclerView = findViewById(R.id.recycler_view);
     }
 
     private void askForPermission() {
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements MainView , Adapte
     }
 
     @Override
-    public void setItemsByName(List<Geoname_> items) {
+    public void setItemsByName(final List<Geoname_> items) {
         Log.d(TAG, "setItemsByName: ACTIVATED");
         if (items != null) {
             for (int i = 0; i < items.size(); i++) {
@@ -97,10 +99,25 @@ public class MainActivity extends AppCompatActivity implements MainView , Adapte
         } else {
             Log.d(TAG, "setItemsByName: ITEMS NULOS");
         }
-    }
+        mAdapter = new GeonameAdapter(items);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(), "Hola! esta es  "+items.get(position).getAsciiName(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                // ...
+            }
+        }));
 
     }
 

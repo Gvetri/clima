@@ -2,6 +2,8 @@ package com.example.giuseppe.clima;
 
 import android.content.Context;
 
+import com.example.giuseppe.clima.model.Geoname_;
+
 import java.util.List;
 
 /**

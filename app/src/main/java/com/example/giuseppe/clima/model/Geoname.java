@@ -1,5 +1,5 @@
 
-package com.example.giuseppe.clima;
+package com.example.giuseppe.clima.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
