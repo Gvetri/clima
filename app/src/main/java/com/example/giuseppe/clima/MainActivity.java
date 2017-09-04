@@ -2,6 +2,7 @@ package com.example.giuseppe.clima;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @OnClick(R.id.button)
     public void search(View view) {
-        Log.d(TAG,"On Click! ---------------------- "+mSearch.getText());
         presenter.onSearchStarted(mSearch.getText().toString());
         presenter.onSaveSearchQuery(mSearch.getText().toString());
     }
@@ -91,14 +91,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void setItemsByName(final List<Geoname_> items) {
-        Log.d(TAG, "setItemsByName: ACTIVATED");
-        if (items != null) {
-            for (int i = 0; i < items.size(); i++) {
-                Log.d(TAG, "setItemsByName: ITEM NO NULO EN LA VISTA "+items.get(i).getAsciiName());
-            }
-        } else {
-            Log.d(TAG, "setItemsByName: ITEMS NULOS");
-        }
         mAdapter = new GeonameAdapter(items);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -109,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(), "Hola! esta es  "+items.get(position).getAsciiName(), Toast.LENGTH_SHORT).show();
+                startMap(items.get(position));
 
             }
 
@@ -119,6 +111,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         }));
 
+    }
+
+    private void startMap(Geoname_ geoname_) {
+        Intent i = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("geoname",geoname_);
+        i.setClass(MainActivity.this, MapsActivity.class);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
 

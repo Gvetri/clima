@@ -28,8 +28,6 @@ public class GeonameAdapter extends RecyclerView.Adapter<GeonameAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.geoname_row, parent, false);
-
-
             return new ViewHolder(itemView);
     }
 

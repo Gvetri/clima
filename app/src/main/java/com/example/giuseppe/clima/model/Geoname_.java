@@ -1,10 +1,13 @@
 
 package com.example.giuseppe.clima.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Geoname_ {
+public class Geoname_ implements Parcelable{
 
     @SerializedName("timezone")
     @Expose
@@ -93,6 +96,64 @@ public class Geoname_ {
     @SerializedName("adminName1")
     @Expose
     private String adminName1;
+
+    protected Geoname_(Parcel in) {
+        asciiName = in.readString();
+        countryId = in.readString();
+        fcl = in.readString();
+        if (in.readByte() == 0) {
+            score = null;
+        } else {
+            score = in.readDouble();
+        }
+        adminId2 = in.readString();
+        adminId3 = in.readString();
+        countryCode = in.readString();
+        adminId1 = in.readString();
+        lat = in.readString();
+        fcode = in.readString();
+        continentCode = in.readString();
+        adminCode2 = in.readString();
+        adminCode3 = in.readString();
+        adminCode1 = in.readString();
+        lng = in.readString();
+        if (in.readByte() == 0) {
+            geonameId = null;
+        } else {
+            geonameId = in.readInt();
+        }
+        toponymName = in.readString();
+        if (in.readByte() == 0) {
+            population = null;
+        } else {
+            population = in.readInt();
+        }
+        adminName5 = in.readString();
+        adminName4 = in.readString();
+        adminName3 = in.readString();
+        adminName2 = in.readString();
+        name = in.readString();
+        fclName = in.readString();
+        countryName = in.readString();
+        fcodeName = in.readString();
+        adminName1 = in.readString();
+    }
+
+    public Geoname_ (){
+
+    }
+
+    public static final Creator<Geoname_> CREATOR = new Creator<Geoname_>() {
+        @Override
+        public Geoname_ createFromParcel(Parcel in) {
+            return new Geoname_(in);
+        }
+
+        @Override
+        public Geoname_[] newArray(int size) {
+            return new Geoname_[size];
+        }
+    };
 
     public Timezone getTimezone() {
         return timezone;
@@ -326,4 +387,54 @@ public class Geoname_ {
         this.adminName1 = adminName1;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(asciiName);
+        parcel.writeString(countryId);
+        parcel.writeString(fcl);
+        if (score == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(score);
+        }
+        parcel.writeString(adminId2);
+        parcel.writeString(adminId3);
+        parcel.writeString(countryCode);
+        parcel.writeString(adminId1);
+        parcel.writeString(lat);
+        parcel.writeString(fcode);
+        parcel.writeString(continentCode);
+        parcel.writeString(adminCode2);
+        parcel.writeString(adminCode3);
+        parcel.writeString(adminCode1);
+        parcel.writeString(lng);
+        if (geonameId == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(geonameId);
+        }
+        parcel.writeString(toponymName);
+        if (population == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(population);
+        }
+        parcel.writeString(adminName5);
+        parcel.writeString(adminName4);
+        parcel.writeString(adminName3);
+        parcel.writeString(adminName2);
+        parcel.writeString(name);
+        parcel.writeString(fclName);
+        parcel.writeString(countryName);
+        parcel.writeString(fcodeName);
+        parcel.writeString(adminName1);
+    }
 }

@@ -43,7 +43,7 @@ public class GeonameController implements Callback<Geoname> {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(GeonameService.URL_BASE).addConverterFactory(GsonConverterFactory.create(gson)).build();
         GeonameService geonameService = retrofit.create(GeonameService.class);
-        Call<Geoname> geonames = geonameService.getCitiesByName("madrid",20,0,"en",true,"FULL","ilgeonamessample");
+        Call<Geoname> geonames = geonameService.getCitiesByName(name,20,0,"en",true,"FULL","ilgeonamessample");
         geonames.enqueue(this);
     }
 
@@ -67,18 +67,9 @@ public class GeonameController implements Callback<Geoname> {
                     a[i] = geoname_;
                 }
 
-                for (int i = 0; i < a.length; i++) {
-                    Log.d(TAG, "onResponse: GEONAME_ === "+geoname.getGeonames().get(i).getAsciiName());
-                }
-
                 mGeonameList = Arrays.asList(a);
-
                 listener.OnLoadFinished(mGeonameList);
 
-                Log.d(TAG, "onResponse: CONVERSION -----------");
-                for (int i = 0; i < mGeonameList.size(); i++) {
-                    Log.d(TAG, "onResponse: GEONAME_ === "+mGeonameList.get(i).getAsciiName());
-                }
             } else {
                 Log.d(TAG, "onResponse: GEONAME NULL");
             }
